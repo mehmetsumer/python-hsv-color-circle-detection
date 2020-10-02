@@ -93,7 +93,7 @@ class window(QMainWindow):
 
     def showColorPicker(self):
         global files
-        files = ['images/hsv1.png', 'images/hsv2.png']
+        files = ['images/hsv1.png', 'images/hsv2.png', 'images/hsv3.png']
         self.detectRedColor()
 
     """def hsvToImage(self):
@@ -285,16 +285,21 @@ class window(QMainWindow):
                                self.putText(frame, "%" + "{:.2f}".format(perc) + " match", 10, rows - 10, 1))
                 return
             if self.cb_showMask.isChecked():
-                self.stackAndShow(frame, redmask, "Image_" + str(i))
+                self.stackAndShow(frame,
+                                  self.putText(redmask, "%" + "{:.2f}".format(perc) + " match", 10, rows - 10, 0, 0, 0),
+                                  "Image_" + str(i))
             else:
                 cv2.imshow("Image_" + str(i),
                            self.putText(frame, "%" + "{:.2f}".format(perc) + " match", 10, rows - 10, 1, 0, 0))
 
     def stackAndShow(self, frame, mask, name):
         h, w, _ = frame.shape
-        if w * 2 >= 1920:
+        #print(str(h))
+        while w * 2 >= 1920 or h >= 1000:
             frame = cv2.resize(frame, (0, 0), None, .75, .75)
             mask = cv2.resize(mask, (0, 0), None, .75, .75)
+            h, w, _ = frame.shape
+            #print(str(h))
         img_concat = np.concatenate((frame, mask), axis=1)
         cv2.imshow(name, img_concat)
         # cv2.waitKey(0)
