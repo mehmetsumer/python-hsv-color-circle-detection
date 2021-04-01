@@ -8,9 +8,6 @@ pip install numpy
 pip install PyQt5
 ```
 
-## How To Use
-It is pretty simple.
-
 ### Sources
 https://pysource.com/2019/06/27/yolo-object-detection-using-opencv-with-python/#
 
